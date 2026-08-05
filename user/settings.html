@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" data-require-role="user">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings | URL Safety Detection System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../js/theme-manager.js"></script>
+</head>
+<body class="theme-dark">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">
+          <img src="../assets/logo-shield.svg" alt="URLGuard logo">
+        </div>
+        <div>
+          <h1>URLGuard</h1>
+          <p>URL Safety Detection</p>
+        </div>
+      </div>
+
+      <nav class="nav-section">
+        <span class="nav-label">Workspace</span>
+        <a class="nav-link" href="index.html">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.3 12 5l8 6.3V20a1 1 0 0 1-1 1h-4.8v-6.2H9.8V21H5a1 1 0 0 1-1-1v-8.7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </span>
+          Dashboard
+        </a>
+        <a class="nav-link" href="scan.html">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 13.5 4.8 19.2a2.1 2.1 0 0 1-3 0h0a2.1 2.1 0 0 1 0-3l5.7-5.7m4.7-4.7 1.9-1.9a4 4 0 1 1 5.7 5.7l-1.9 1.9m-9.5 0 5.7 5.7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          Scan URL
+        </a>
+        <a class="nav-link" href="history.html">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7V12l3 2m7-2a10 10 0 1 1-3-7.2M22 4v5h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          History
+        </a>
+        <a class="nav-link" href="saved.html">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.8h12a1.2 1.2 0 0 1 1.2 1.2v16l-7.2-4.4L4.8 21V5A1.2 1.2 0 0 1 6 3.8Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </span>
+          Saved Results
+        </a>
+        <a class="nav-link" href="about.html">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 10.2v5.1m0-8.4h.1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </span>
+          About
+        </a>
+        <a class="nav-link active" href="settings.html">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 1.6 2.7 3.1.8-.8 3.1 2.3 2.1-2.3 2.1.8 3.1-3.1.8L12 22l-1.6-2.7-3.1-.8.8-3.1L5.8 13l2.3-2.1-.8-3.1 3.1-.8L12 2Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="12" r="3.2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+          </span>
+          Settings
+        </a>
+      </nav>
+
+      <div class="sidebar-card">
+        <div class="pulse-glow"></div>
+        <img class="sidebar-art" src="../assets/sidebar-orb.svg" alt="Security shield illustration">
+        <h3>Stay alert online</h3>
+        <p>Scan unfamiliar links before clicking and reduce the risk of phishing, spoofing, and credential theft.</p>
+        <a class="text-link" href="../admin/admin.html">Open admin view</a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Preferences</p>
+          <h2>Settings</h2>
+        </div>
+        <div class="topbar-actions">
+          <button class="icon-button" id="themeToggle" type="button" aria-label="Toggle theme">
+            <svg class="theme-icon theme-icon-dark" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 15.6A7.7 7.7 0 0 1 8.4 6a8.8 8.8 0 1 0 9.6 9.6Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            <svg class="theme-icon theme-icon-light" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v2.2M12 18.8V21M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M3 12h2.2M18.8 12H21M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6M15.4 12A3.4 3.4 0 1 1 8.6 12a3.4 3.4 0 0 1 6.8 0Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </button>
+          <button class="profile-chip" type="button">
+            <span class="profile-avatar">U</span>
+            <span>User</span>
+          </button>
+        </div>
+      </header>
+
+      <section class="settings-layout">
+        <article class="card settings-card">
+          <div class="settings-card-header">
+            <div class="settings-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 12.2a4.3 4.3 0 1 0-4.3-4.3 4.3 4.3 0 0 0 4.3 4.3Zm-7.2 8.1a7.2 7.2 0 0 1 14.4 0" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="settings-card-title">
+              <h3>Profile Settings</h3>
+              <p>Manage your profile information</p>
+            </div>
+          </div>
+
+          <div class="settings-profile">
+            <div class="settings-avatar-wrap">
+              <div class="settings-avatar" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 12.2a4.3 4.3 0 1 0-4.3-4.3 4.3 4.3 0 0 0 4.3 4.3Zm-7.2 8.1a7.2 7.2 0 0 1 14.4 0" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <button class="secondary-button" type="button">Change Photo</button>
+            </div>
+
+            <div class="settings-stack">
+              <label class="settings-field">
+                <span>Full Name</span>
+                <input id="userFullName" class="settings-input" type="text" data-setting-key="full_name" placeholder="Enter full name" readonly>
+              </label>
+              <label class="settings-field">
+                <span>Email Address</span>
+                <input id="userEmailAddress" class="settings-input" type="email" data-setting-key="email_address" placeholder="Enter email address" readonly>
+              </label>
+              <div class="settings-row-actions" style="justify-content:flex-end; gap: 0.75rem;">
+                <button id="userSettingsEdit" class="secondary-button" type="button">Edit</button>
+                <button id="userSettingsSave" class="primary-button" data-settings-save="true" type="button" style="display: none;">Save Changes</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card settings-card">
+          <div class="settings-card-header">
+            <div class="settings-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M7.5 10V7.8a4.5 4.5 0 1 1 9 0V10m-10.5 0h12A1.5 1.5 0 0 1 19.5 11.5v7A1.5 1.5 0 0 1 18 20H6a1.5 1.5 0 0 1-1.5-1.5v-7A1.5 1.5 0 0 1 6 10Zm5.9 3.7a1.1 1.1 0 1 0-1.5 1v2.1h1.5v-2.1a1.1 1.1 0 0 0 0-2.2Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="settings-card-title">
+              <h3>Security Settings</h3>
+              <p>Keep your account secure</p>
+            </div>
+          </div>
+
+          <div class="settings-stack">
+            <div class="settings-row-card">
+              <strong>Change Password</strong>
+              <div class="settings-field-grid">
+                <input id="currentPassword" class="settings-password" type="password" placeholder="Current Password">
+                <input id="newPassword" class="settings-password" type="password" placeholder="New Password">
+                <input id="confirmNewPassword" class="settings-password" type="password" placeholder="Confirm New Password">
+                <button id="updatePasswordBtn" class="primary-button" type="button">Update Password</button>
+                <div id="passwordStatus" style="margin-top: 0.8rem; display: none; font-size: 0.9rem; font-weight: 600;"></div>
+              </div>
+            </div>
+
+            <div class="settings-row-card">
+              <div class="settings-inline">
+                <div>
+                  <strong>Two-Factor Authentication</strong>
+                  <p>Add an extra layer of security to your account.</p>
+                </div>
+                <div class="settings-pill-toggle" data-setting-key="two_factor_user" aria-label="Two-factor authentication">
+                  <button class="is-active" data-value="0" type="button">Off</button>
+                  <button data-value="1" type="button">On</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="settings-row-card">
+              <div class="settings-inline">
+                <div>
+                  <strong>Login Activity</strong>
+                  <p>View and manage your recent login sessions.</p>
+                </div>
+                <button id="viewActivityBtn" class="secondary-button" type="button">View Activity</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card settings-card">
+          <div class="settings-card-header">
+            <div class="settings-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 3.5 20 7v6.2c0 4.6-3.3 7.9-8 10-4.7-2.1-8-5.4-8-10V7l8-3.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M12 8v5.1l3 1.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            </div>
+            <div class="settings-card-title">
+              <h3>Preferences</h3>
+              <p>Customize your experience</p>
+            </div>
+          </div>
+
+          <div class="settings-stack">
+            <div class="settings-row-card">
+              <div class="settings-inline">
+                <div>
+                  <strong>Theme</strong>
+                  <p>Choose your preferred theme</p>
+                </div>
+                <div class="settings-pill-toggle" data-setting-key="theme" aria-label="Theme">
+                  <button class="is-active" data-value="dark" type="button">Dark</button>
+                  <button data-value="light" type="button">Light</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="settings-row-card">
+              <div class="settings-inline">
+                <div>
+                  <strong>Notifications</strong>
+                  <p>Receive email notifications about scans</p>
+                </div>
+                <input id="userNotifications" type="checkbox" data-setting-key="notifications" aria-label="Email notifications">
+              </div>
+            </div>
+
+            <div class="settings-row-card">
+              <div class="settings-inline">
+                <div>
+                  <strong>Language</strong>
+                  <p>Select your preferred language</p>
+                </div>
+                <select id="userLanguage" class="settings-select" data-setting-key="language" aria-label="Language">
+                  <option value="en">English</option>
+                  <option value="hi">Hindi</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="card settings-card">
+          <div class="settings-card-header">
+            <div class="settings-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M5.5 7.5h13M9 7.5v-1.1A1.4 1.4 0 0 1 10.4 5h3.2a1.4 1.4 0 0 1 1.4 1.4v1.1M8 7.5l.5 11a1.3 1.3 0 0 0 1.3 1.2h4.4a1.3 1.3 0 0 0 1.3-1.2l.5-11M10.3 11v5.2M13.7 11v5.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="settings-card-title">
+              <h3>Data & Privacy</h3>
+              <p>Manage your data and privacy</p>
+            </div>
+          </div>
+
+          <div class="settings-stack">
+            <div class="settings-row-card">
+              <div class="settings-inline">
+                <div>
+                  <strong>Clear Scan History</strong>
+                  <p>Remove all your scan history and results.</p>
+                </div>
+                <button id="clearHistoryBtn" class="secondary-button" type="button">Clear History</button>
+              </div>
+            </div>
+
+            <div class="settings-row-card">
+              <div class="settings-inline">
+                <div>
+                  <strong>Download Your Data</strong>
+                  <p>Download all your data and scan history.</p>
+                </div>
+                <button id="downloadDataBtn" class="secondary-button" type="button">Download</button>
+              </div>
+            </div>
+
+            <div class="settings-row-card">
+              <div class="settings-inline">
+                <div>
+                  <strong>Delete Account</strong>
+                  <p>Permanently delete your account and all data.</p>
+                </div>
+                <button id="deleteAccountBtn" class="secondary-button" type="button">Delete Account</button>
+              </div>
+            </div>
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <!-- Login Activity Modal -->
+  <div id="activityModal" class="modal-overlay" style="display: none; position: fixed; inset: 0; background: rgba(2, 6, 16, 0.85); backdrop-filter: blur(8px); z-index: 99999; align-items: center; justify-content: center; padding: 1.5rem;">
+    <div class="card" style="width: 100%; max-width: 650px; background: var(--bg-tertiary); border: 1px solid var(--card-border); padding: 1.5rem; max-height: 85vh; display: flex; flex-direction: column; gap: 1.2rem; overflow: hidden; position: relative;">
+      <div style="display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+        <div>
+          <h3 style="margin: 0; font-size: 1.25rem; font-weight: 800;">Recent Login Activity</h3>
+          <p style="margin: 0.2rem 0 0 0; color: var(--text-secondary); font-size: 0.9rem;">Review recent successful login sessions for your account</p>
+        </div>
+        <button id="closeActivityModalBtn" type="button" class="icon-button" style="width: 32px; height: 32px; border-radius: 50%; padding: 0; display: grid; place-items: center;">
+          <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+      
+      <div class="table-wrap" style="overflow-y: auto; flex: 1 1 auto; max-height: 55vh;">
+        <table style="min-width: 100%;">
+          <thead>
+            <tr>
+              <th style="font-size: 0.75rem;">Time</th>
+              <th style="font-size: 0.75rem;">IP Address</th>
+              <th style="font-size: 0.75rem;">Browser / Device</th>
+            </tr>
+          </thead>
+          <tbody id="activityLogTableBody">
+            <!-- Dynamic rows will be inserted here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/session-protection.js"></script>
+  <script src="../script.js"></script>
+  <script src="../js/settings-control.js?v=profile-edit-1"></script>
+</body>
+</html>

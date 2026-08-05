@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" data-require-role="admin">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Model Overview | Admin Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../js/theme-manager.js"></script>
+</head>
+<body class="theme-dark">
+  <div class="app-shell admin-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">
+          <img src="../assets/logo-shield.svg" alt="URLGuard logo">
+        </div>
+        <div>
+          <h1>URLGuard</h1>
+          <p>Admin Console</p>
+        </div>
+      </div>
+
+      <nav class="nav-section">
+        <span class="nav-label">Admin</span>
+        <a class="nav-link" href="admin.html">Dashboard</a>
+        <a class="nav-link" href="scan.html">Scan URLs</a>
+        <a class="nav-link" href="history.html">URL History</a>
+        <a class="nav-link" href="reports.html">Reports</a>
+        <a class="nav-link" href="users.html">Users</a>
+        <a class="nav-link active" href="model.html">Model Overview</a>
+        <a class="nav-link" href="features.html">Feature Analysis</a>
+        <a class="nav-link" href="performance.html">Model Performance</a>
+        <a class="nav-link" href="settings.html">Settings</a>
+        <a class="nav-link" href="logs.html">Activity Logs</a>
+      </nav>
+
+      <div class="sidebar-card admin-card">
+        <img class="sidebar-art" src="../assets/sidebar-orb.svg" alt="Security shield illustration">
+        <h3>System integrity</h3>
+        <p>Keep operations monitored and retrain only when feature drift or new threat patterns appear.</p>
+        <a class="text-link" href="../user/index.html">Open user dashboard</a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Admin Tools</p>
+          <h2>Model Overview</h2>
+        </div>
+        <div class="topbar-actions">
+          <label class="searchbar" for="adminSearch">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.8" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m20 20-3.8-3.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <input id="adminSearch" type="search" placeholder="Search anything...">
+          </label>
+          <button class="profile-chip" type="button">
+            <span class="profile-avatar">A</span>
+            <span>Admin</span>
+          </button>
+        </div>
+      </header>
+
+      <section class="card">
+        <h3>ML Model Information</h3>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin: 20px 0;">
+          <div style="padding: 15px; border: 1px solid var(--card-border); border-radius: 8px;">
+            <p style="color: var(--text-muted); margin: 0 0 5px 0;">Model Type</p>
+            <p id="model-type" style="font-size: 16px; margin: 0;">--</p>
+          </div>
+          <div style="padding: 15px; border: 1px solid var(--card-border); border-radius: 8px;">
+            <p style="color: var(--text-muted); margin: 0 0 5px 0;">Status</p>
+            <p id="model-status" style="font-size: 16px; margin: 0; color: var(--safe);">Active</p>
+          </div>
+          <div style="padding: 15px; border: 1px solid var(--card-border); border-radius: 8px;">
+            <p style="color: var(--text-muted); margin: 0 0 5px 0;">Accuracy</p>
+            <p id="model-accuracy" style="font-size: 16px; margin: 0;">--</p>
+          </div>
+          <div style="padding: 15px; border: 1px solid var(--card-border); border-radius: 8px;">
+            <p style="color: var(--text-muted); margin: 0 0 5px 0;">Last Updated</p>
+            <p id="model-updated" style="font-size: 16px; margin: 0;">N/A</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="admin-grid" style="grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); margin-top: 20px; gap: 20px;">
+        <article class="card panel">
+          <div class="section-head">
+            <h3>All Trained Models Accuracy</h3>
+          </div>
+          <div class="table-wrap" style="margin-top: 15px;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Model</th>
+                  <th>Accuracy</th>
+                  <th>Precision</th>
+                  <th>Recall</th>
+                  <th>F1 Score</th>
+                  <th>AUC-ROC</th>
+                </tr>
+              </thead>
+              <tbody id="all-models-tbody">
+                <tr>
+                  <td colspan="6" class="empty-state-cell">Loading models data...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="card panel">
+          <div class="section-head">
+            <h3>Accuracy Comparison Graph</h3>
+          </div>
+          <div style="text-align: center; padding: 15px; background: #ffffff; border-radius: 10px; display: flex; justify-content: center; align-items: center;">
+            <img src="../visualizations/model_accuracy_comparison.png" alt="Model Accuracy Comparison Graph" style="max-width: 100%; height: auto; display: block; border-radius: 4px;">
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script src="../js/session-protection.js"></script>
+  <script src="../script.js"></script>
+  <script src="admin-dropdown.js"></script>
+  <script src="admin-model.js"></script>
+</body>
+</html>

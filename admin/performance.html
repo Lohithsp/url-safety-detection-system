@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" data-require-role="admin">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Model Performance | Admin Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../js/theme-manager.js"></script>
+</head>
+<body class="theme-dark">
+  <div class="app-shell admin-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">
+          <img src="../assets/logo-shield.svg" alt="URLGuard logo">
+        </div>
+        <div>
+          <h1>URLGuard</h1>
+          <p>Admin Console</p>
+        </div>
+      </div>
+
+      <nav class="nav-section">
+        <span class="nav-label">Admin</span>
+        <a class="nav-link" href="admin.html">Dashboard</a>
+        <a class="nav-link" href="scan.html">Scan URLs</a>
+        <a class="nav-link" href="history.html">URL History</a>
+        <a class="nav-link" href="reports.html">Reports</a>
+        <a class="nav-link" href="users.html">Users</a>
+        <a class="nav-link" href="model.html">Model Overview</a>
+        <a class="nav-link" href="features.html">Feature Analysis</a>
+        <a class="nav-link active" href="performance.html">Model Performance</a>
+        <a class="nav-link" href="settings.html">Settings</a>
+        <a class="nav-link" href="logs.html">Activity Logs</a>
+      </nav>
+
+      <div class="sidebar-card admin-card">
+        <img class="sidebar-art" src="../assets/sidebar-orb.svg" alt="Security shield illustration">
+        <h3>System integrity</h3>
+        <p>Keep operations monitored and retrain only when feature drift or new threat patterns appear.</p>
+        <a class="text-link" href="../user/index.html">Open user dashboard</a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Admin Tools</p>
+          <h2>Model Performance</h2>
+        </div>
+        <div class="topbar-actions">
+          <label class="searchbar" for="adminSearch">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.8" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m20 20-3.8-3.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <input id="adminSearch" type="search" placeholder="Search anything...">
+          </label>
+          <button class="profile-chip" type="button">
+            <span class="profile-avatar">A</span>
+            <span>Admin</span>
+          </button>
+        </div>
+      </header>
+
+      <section class="stats-grid">
+        <article class="card stat-card">
+          <div class="stat-icon icon-blue"></div>
+          <div>
+            <p>Precision</p>
+            <h3 id="perf-precision">--</h3>
+            <span id="note-precision" class="stat-note">No data</span>
+          </div>
+        </article>
+        <article class="card stat-card">
+          <div class="stat-icon icon-green"></div>
+          <div>
+            <p>Recall</p>
+            <h3 id="perf-recall">--</h3>
+            <span id="note-recall" class="stat-note">No data</span>
+          </div>
+        </article>
+        <article class="card stat-card">
+          <div class="stat-icon icon-red"></div>
+          <div>
+            <p>F1 Score</p>
+            <h3 id="perf-f1">--</h3>
+            <span id="note-f1" class="stat-note">No data</span>
+          </div>
+        </article>
+        <article class="card stat-card">
+          <div class="stat-icon icon-orange"></div>
+          <div>
+            <p>AUC-ROC</p>
+            <h3 id="perf-auc">--</h3>
+            <span id="note-auc" class="stat-note">No data</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="admin-grid" style="grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); margin-top: 25px; gap: 20px;">
+        <article class="card panel">
+          <div class="section-head">
+            <h3>Accuracy Comparison Graph</h3>
+          </div>
+          <div style="text-align: center; padding: 15px; background: #ffffff; border-radius: 10px; display: flex; justify-content: center; align-items: center;">
+            <img src="../visualizations/model_accuracy_comparison.png" alt="Model Accuracy Comparison Graph" style="max-width: 100%; height: auto; display: block; border-radius: 4px;">
+          </div>
+        </article>
+
+        <article class="card panel">
+          <div class="section-head">
+            <h3>Precision, Recall & F1-Score Chart</h3>
+          </div>
+          <div style="text-align: center; padding: 15px; background: #ffffff; border-radius: 10px; display: flex; justify-content: center; align-items: center;">
+            <img src="../visualizations/model_metrics_comparison.png" alt="Precision, Recall and F1-Score Chart" style="max-width: 100%; height: auto; display: block; border-radius: 4px;">
+          </div>
+        </article>
+      </section>
+
+      <section class="admin-grid" style="grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); margin-top: 25px; gap: 20px;">
+        <article class="card panel">
+          <div class="section-head">
+            <h3>Model ROC Curves</h3>
+          </div>
+          <div style="text-align: center; padding: 15px; background: #ffffff; border-radius: 10px; display: flex; justify-content: center; align-items: center;">
+            <img src="../visualizations/roc_curves.png" alt="Model ROC Curves" style="max-width: 100%; height: auto; display: block; border-radius: 4px;">
+          </div>
+        </article>
+
+        <article class="card panel">
+          <div class="section-head">
+            <h3>Confusion Matrix (Best Model)</h3>
+          </div>
+          <div style="text-align: center; padding: 15px; background: #ffffff; border-radius: 10px; display: flex; justify-content: center; align-items: center;">
+            <img src="../visualizations/confusion_matrix.png" alt="Confusion Matrix" style="max-width: 100%; height: auto; display: block; border-radius: 4px;">
+          </div>
+        </article>
+      </section>
+
+      <section class="admin-grid" style="grid-template-columns: 1fr; margin-top: 25px; gap: 20px;">
+        <article class="card panel">
+          <div class="section-head">
+            <h3>SHAP Feature Impact Summary</h3>
+          </div>
+          <div style="text-align: center; padding: 15px; background: #ffffff; border-radius: 10px; max-width: 800px; margin: 0 auto; display: flex; justify-content: center; align-items: center;">
+            <img src="../visualizations/shap_summary.png" alt="SHAP Feature Impact Summary" style="max-width: 100%; height: auto; display: block; border-radius: 4px;">
+          </div>
+        </article>
+      </section>
+    </main>
+  </div>
+
+  <script src="../js/session-protection.js"></script>
+  <script src="../script.js"></script>
+  <script src="admin-dropdown.js"></script>
+  <script src="admin-performance.js"></script>
+</body>
+</html>

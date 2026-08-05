@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" data-require-role="user">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>History | URL Safety Detection System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../js/theme-manager.js"></script>
+</head>
+<body class="theme-dark">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">
+          <img src="../assets/logo-shield.svg" alt="URLGuard logo">
+        </div>
+        <div>
+          <h1>URLGuard</h1>
+          <p>URL Safety Detection</p>
+        </div>
+      </div>
+
+      <nav class="nav-section">
+        <span class="nav-label">Workspace</span>
+        <a class="nav-link" href="index.html">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11.3 12 5l8 6.3V20a1 1 0 0 1-1 1h-4.8v-6.2H9.8V21H5a1 1 0 0 1-1-1v-8.7Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </span>
+          Dashboard
+        </a>
+        <a class="nav-link" href="scan.html">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.5 13.5 4.8 19.2a2.1 2.1 0 0 1-3 0h0a2.1 2.1 0 0 1 0-3l5.7-5.7m4.7-4.7 1.9-1.9a4 4 0 1 1 5.7 5.7l-1.9 1.9m-9.5 0 5.7 5.7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          Scan URL
+        </a>
+        <a class="nav-link active" href="history.html">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7V12l3 2m7-2a10 10 0 1 1-3-7.2M22 4v5h-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+          History
+        </a>
+        <a class="nav-link" href="saved.html">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3.8h12a1.2 1.2 0 0 1 1.2 1.2v16l-7.2-4.4L4.8 21V5A1.2 1.2 0 0 1 6 3.8Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          </span>
+          Saved Results
+        </a>
+        <a class="nav-link" href="about.html">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 10.2v5.1m0-8.4h.1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </span>
+          About
+        </a>
+        <a class="nav-link" href="settings.html">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 1.6 2.7 3.1.8-.8 3.1 2.3 2.1-2.3 2.1.8 3.1-3.1.8L12 22l-1.6-2.7-3.1-.8.8-3.1L5.8 13l2.3-2.1-.8-3.1 3.1-.8L12 2Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="12" r="3.2" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+          </span>
+          Settings
+        </a>
+      </nav>
+
+      <div class="sidebar-card">
+        <div class="pulse-glow"></div>
+        <img class="sidebar-art" src="../assets/sidebar-orb.svg" alt="Security shield illustration">
+        <h3>Stay alert online</h3>
+        <p>Scan unfamiliar links before clicking and reduce the risk of phishing, spoofing, and credential theft.</p>
+        <a class="text-link" href="../admin/admin.html">Open admin view</a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Scan History</p>
+          <h2>Your Scan History</h2>
+        </div>
+        <div class="topbar-actions">
+          <button class="icon-button" id="themeToggle" type="button" aria-label="Toggle theme">
+            <svg class="theme-icon theme-icon-dark" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 15.6A7.7 7.7 0 0 1 8.4 6a8.8 8.8 0 1 0 9.6 9.6Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+            <svg class="theme-icon theme-icon-light" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v2.2M12 18.8V21M4.9 4.9l1.6 1.6M17.5 17.5l1.6 1.6M3 12h2.2M18.8 12H21M4.9 19.1l1.6-1.6M17.5 6.5l1.6-1.6M15.4 12A3.4 3.4 0 1 1 8.6 12a3.4 3.4 0 0 1 6.8 0Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </button>
+          <button class="profile-chip" type="button">
+            <span class="profile-avatar">U</span>
+            <span>User</span>
+          </button>
+        </div>
+      </header>
+
+      <section class="card panel">
+        <div class="section-head">
+          <h3>Recent Scans</h3>
+        </div>
+        <div class="recent-list">
+          <p style="text-align: center; color: #888; padding: 40px 20px;">No scan history yet. Start scanning URLs to build your history.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../js/session-protection.js"></script>
+  <script src="../script.js"></script>
+</body>
+</html>

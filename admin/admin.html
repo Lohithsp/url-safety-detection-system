@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" data-require-role="admin">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard | URL Safety Detection System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../js/theme-manager.js"></script>
+</head>
+<body class="theme-dark">
+  <div class="app-shell admin-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">
+          <img src="../assets/logo-shield.svg" alt="URLGuard logo">
+        </div>
+        <div>
+          <h1>URLGuard</h1>
+          <p>Admin Console</p>
+        </div>
+      </div>
+
+      <nav class="nav-section">
+        <span class="nav-label">Admin</span>
+        <a class="nav-link active" href="admin.html">Dashboard</a>
+        <a class="nav-link" href="scan.html">Scan URLs</a>
+        <a class="nav-link" href="history.html">URL History</a>
+        <a class="nav-link" href="reports.html">Reports</a>
+        <a class="nav-link" href="users.html">Users</a>
+        <a class="nav-link" href="model.html">Model Overview</a>
+        <a class="nav-link" href="features.html">Feature Analysis</a>
+        <a class="nav-link" href="performance.html">Model Performance</a>
+        <a class="nav-link" href="settings.html">Settings</a>
+        <a class="nav-link" href="logs.html">Activity Logs</a>
+      </nav>
+
+      <div class="sidebar-card admin-card">
+        <img class="sidebar-art" src="../assets/sidebar-orb.svg" alt="Security shield illustration">
+        <h3>System integrity</h3>
+        <p>Keep operations monitored and retrain only when feature drift or new threat patterns appear.</p>
+        <a class="text-link" href="../user/index.html">Open user dashboard</a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Operations Center</p>
+          <h2>Admin Dashboard</h2>
+        </div>
+        <div class="topbar-actions">
+          <label class="searchbar" for="adminSearch">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.8" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m20 20-3.8-3.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <input id="adminSearch" type="search" placeholder="Search anything...">
+          </label>
+          <button class="profile-chip" type="button">
+            <span class="profile-avatar">A</span>
+            <span>Admin</span>
+          </button>
+        </div>
+      </header>
+
+      <section class="overview-banner card">
+        <div class="overview-copy">
+          <span class="hero-badge">Security Operations</span>
+          <h3>Monitor the detection pipeline from one command center.</h3>
+          <p>Track incoming scans, review queued activity, and keep the model ready for production traffic with a cleaner security-first workspace.</p>
+          <div class="overview-tags">
+            <span class="overview-tag">Model active</span>
+            <span class="overview-tag">Logs ready</span>
+            <span class="overview-tag">Awaiting first scans</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats-grid">
+        <article class="card stat-card">
+          <div class="stat-icon icon-blue"></div>
+          <div>
+            <p>Total scans</p>
+            <h3 id="stat-total-scans">--</h3>
+            <span class="stat-note" id="note-total-scans">No scan data yet</span>
+          </div>
+        </article>
+        <article class="card stat-card">
+          <div class="stat-icon icon-green"></div>
+          <div>
+            <p>Safe URLs</p>
+            <h3 id="stat-safe-urls">--</h3>
+            <span class="stat-note" id="note-safe-urls">Awaiting results</span>
+          </div>
+        </article>
+        <article class="card stat-card">
+          <div class="stat-icon icon-red"></div>
+          <div>
+            <p>Malicious URLs</p>
+            <h3 id="stat-malicious-urls">--</h3>
+            <span class="stat-note" id="note-malicious-urls">Awaiting results</span>
+          </div>
+        </article>
+        <article class="card stat-card">
+          <div class="stat-icon icon-orange"></div>
+          <div>
+            <p>Suspicious URLs</p>
+            <h3 id="stat-suspicious-urls">--</h3>
+            <span class="stat-note" id="note-suspicious-urls">Awaiting results</span>
+          </div>
+        </article>
+      </section>
+
+      <section class="admin-grid">
+        <section class="card panel table-panel">
+          <div class="section-head">
+            <h3>Recent scans</h3>
+            <a href="history.html" class="ghost-link">View all</a>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>URL</th>
+                  <th>Result</th>
+                  <th>Scan time</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="recent-scans-tbody">
+                <tr>
+                  <td colspan="4" class="empty-state-cell">
+                    No URL scans have been recorded yet. Results will appear here once the system starts processing requests.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="admin-side">
+          <section class="card panel">
+            <div class="section-head">
+              <h3>Model status</h3>
+            </div>
+            <div class="status-list">
+              <div class="status-row">
+                <span>Model name</span>
+                <strong>Random Forest Classifier</strong>
+              </div>
+              <div class="status-row">
+                <span>Status</span>
+                <strong class="inline-status active-text">Active</strong>
+              </div>
+              <div class="status-row">
+                <span>Feature set</span>
+                <strong>URL lexical signals</strong>
+              </div>
+              <div class="status-row">
+                <span>Last sync</span>
+                <strong>Waiting for first dataset</strong>
+              </div>
+            </div>
+            <button class="primary-button full-width" type="button">Retrain model</button>
+          </section>
+
+          <!-- Recent activity removed per user request -->
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="../js/session-protection.js"></script>
+  <script src="../script.js"></script>
+  <script src="admin-dropdown.js"></script>
+  <script src="admin-dashboard.js"></script>
+</body>
+</html>

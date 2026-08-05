@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>URLGuard - Login & Registration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background-image: url('assets/login.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: #FFFFFF;
+      font-family: 'Manrope', sans-serif;
+      padding-right: 10%;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 1024px) {
+      body {
+        justify-content: center;
+        padding-right: 0;
+      }
+    }
+
+    .auth-container {
+      width: 100%;
+      max-width: 400px;
+      padding: 1.5rem;
+      position: relative;
+    }
+
+    .auth-card {
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      padding: 2.25rem 2rem;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.5);
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .auth-header {
+      text-align: center;
+      margin-bottom: 1.75rem;
+    }
+
+    .auth-header h2 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: #FFFFFF;
+    }
+
+    .auth-header p {
+      margin: 0;
+      color: rgba(248, 250, 252, 0.7);
+      font-size: 0.9rem;
+    }
+
+    .auth-tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 0.6rem;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .auth-tab {
+      background: none;
+      border: none;
+      color: rgba(248, 250, 252, 0.6);
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 0.45rem 0.9rem;
+      min-width: 0;
+      text-align: center;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s, transform 0.12s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .auth-tab.active {
+      color: #FFFFFF;
+    }
+
+    .auth-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 3px;
+      width: 46%;
+      max-width: 56px;
+      background: var(--accent);
+      border-radius: 4px 4px 0 0;
+    }
+
+    .form-group {
+      margin-bottom: 1.1rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: rgba(248, 250, 252, 0.9);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.7rem 0.9rem;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 10px;
+      color: #FFFFFF;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      box-sizing: border-box;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+    }
+
+    .form-control::placeholder {
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    .pw-checklist {
+      list-style: none;
+      padding: 0.4rem 0 0 0;
+      margin: 0 0 0.4rem 0;
+      font-size: 0.85rem;
+      color: rgba(248, 250, 252, 0.6);
+    }
+
+    .pw-checklist li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0.2rem 0;
+    }
+
+    .pw-checklist .checkmark {
+      width: 13px;
+      height: 13px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 3px;
+      display: inline-block;
+      flex: 0 0 13px;
+      background: transparent;
+    }
+
+    .pw-checklist li.valid {
+      color: var(--safe);
+    }
+
+    .pw-checklist li.valid .checkmark {
+      background: var(--safe);
+      border-color: var(--safe);
+    }
+
+    .auth-actions {
+      margin-top: 1.25rem;
+    }
+
+    .auth-actions button {
+      width: 100%;
+      padding: 0.7rem;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      justify-content: center;
+    }
+
+    .auth-footer {
+      text-align: center;
+      margin-top: 1.25rem;
+      font-size: 0.85rem;
+      color: rgba(248, 250, 252, 0.7);
+    }
+
+    .text-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .text-link:hover {
+      text-decoration: underline;
+    }
+
+    .alert {
+      padding: 0.85rem;
+      border-radius: 8px;
+      margin-bottom: 1.25rem;
+      font-size: 0.85rem;
+      display: none;
+    }
+
+    .alert.success {
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid var(--safe);
+      color: var(--safe);
+    }
+
+    .alert.error {
+      background: rgba(248, 113, 113, 0.15);
+      border: 1px solid var(--malicious);
+      color: var(--malicious);
+    }
+
+    @media (max-width: 480px) {
+      .auth-card {
+        padding: 1.5rem 1.25rem;
+        max-width: 92vw;
+      }
+
+      .auth-tabs {
+        justify-content: center;
+      }
+
+      .auth-tab {
+        min-width: 0;
+        padding: 0.35rem 0.6rem;
+      }
+    }
+  </style>
+</head>
+
+<body class="theme-dark">
+  <div class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <svg viewBox="0 0 64 64" aria-hidden="true" style="width: 44px; height: 44px; margin-bottom: 0.75rem; color: var(--accent);">
+          <path d="M32 4 52 12v16c0 14.2-8.6 26.9-20 32C20.6 54.9 12 42.2 12 28V12L32 4Z"
+            fill="var(--accent-soft)" stroke="currentColor" stroke-width="3.5" stroke-linejoin="round" />
+          <path d="m24.2 31.8 5.1 5.1 10.8-11.5" fill="none" stroke="currentColor" stroke-linecap="round"
+            stroke-linejoin="round" stroke-width="3.5" />
+        </svg>
+        <h2>Welcome to URLGuard</h2>
+        <p>Sign in to access your security workspace</p>
+      </div>
+
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabUser">User</button>
+        <button class="auth-tab" id="tabAdmin">Admin</button>
+      </div>
+
+      <div id="alertBox" class="alert"></div>
+
+      <!-- MAIN AUTH FORM -->
+      <form id="authForm">
+        <input type="hidden" id="roleInput" value="user">
+
+        <div id="nameGroup" class="form-group" style="display: none;">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" class="form-control" placeholder="John Doe">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" class="form-control" required placeholder="you@example.com">
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" class="form-control" required placeholder="••••••••">
+        </div>
+        <ul id="pwChecklist" class="pw-checklist" aria-hidden="false">
+          <li id="pwLen"><span class="checkmark"></span>At least 8 characters</li>
+          <li id="pwUpper"><span class="checkmark"></span>One uppercase letter (A-Z)</li>
+          <li id="pwLower"><span class="checkmark"></span>One lowercase letter (a-z)</li>
+          <li id="pwNumber"><span class="checkmark"></span>One number (0-9)</li>
+          <li id="pwSpecial"><span class="checkmark"></span>One special character (!@#$...)</li>
+        </ul>
+
+        <div id="confirmPasswordGroup" class="form-group" style="display: none;">
+          <label for="confirmPassword">Confirm Password</label>
+          <input type="password" id="confirmPassword" class="form-control" placeholder="••••••••">
+          <div id="confirmMatch" style="margin-top:0.5rem;color:var(--text-muted);font-size:0.9rem">Passwords do not
+            match</div>
+        </div>
+
+        <div id="otpGroup" class="form-group" style="display: none;">
+          <label for="otpCode">OTP</label>
+          <input type="text" id="otpCode" class="form-control" inputmode="numeric" autocomplete="one-time-code"
+            maxlength="6" placeholder="Enter 6-digit OTP">
+          <div id="otpHint" style="margin-top:0.5rem;color:var(--text-muted);font-size:0.9rem">Check your email for the
+            6-digit OTP.</div>
+          <button type="button" id="resendOtpBtn" class="text-link"
+            style="background:none;border:none;padding:0;margin-top:0.65rem;font:inherit;display:none;align-self:flex-start;">Resend
+            OTP</button>
+        </div>
+
+        <div class="form-group" id="rememberGroup"
+          style="display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem;">
+          <input type="checkbox" id="remember">
+          <label for="remember" style="margin: 0; font-weight: 400;">Remember me for 30 days</label>
+        </div>
+
+        <div class="auth-actions">
+          <button type="submit" class="primary-button" id="submitBtn">Sign In</button>
+        </div>
+      </form>
+
+      <div class="auth-footer" id="authFooter">
+        Don't have an account? <span class="text-link" id="toggleModeBtn">Register here</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Password checklist live validation
+    const pwInput = document.getElementById('password');
+    const pwLen = document.getElementById('pwLen');
+    const pwUpper = document.getElementById('pwUpper');
+    const pwLower = document.getElementById('pwLower');
+    const pwNumber = document.getElementById('pwNumber');
+    const pwSpecial = document.getElementById('pwSpecial');
+    const confirmInput = document.getElementById('confirmPassword');
+    const confirmMatch = document.getElementById('confirmMatch');
+    const otpInput = document.getElementById('otpCode');
+    const otpGroup = document.getElementById('otpGroup');
+    const otpHint = document.getElementById('otpHint');
+    const resendOtpBtn = document.getElementById('resendOtpBtn');
+
+    function updatePwChecklist() {
+      const v = pwInput.value || '';
+      const hasLen = v.length >= 8;
+      const hasUpper = /[A-Z]/.test(v);
+      const hasLower = /[a-z]/.test(v);
+      const hasNum = /\d/.test(v);
+      const hasSpecial = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?]/.test(v);
+
+      // avoid matching name/email substrings when available
+      const email = (document.getElementById('email') && document.getElementById('email').value) || '';
+      const name = (document.getElementById('name') && document.getElementById('name').value) || '';
+      const containsEmailOrName = (email && v.toLowerCase().includes(email.toLowerCase())) || (name && name.split(' ').some(part => part && v.toLowerCase().includes(part.toLowerCase())));
+
+      pwLen.classList.toggle('valid', hasLen);
+      pwUpper.classList.toggle('valid', hasUpper);
+      pwLower.classList.toggle('valid', hasLower);
+      pwNumber.classList.toggle('valid', hasNum);
+      pwSpecial.classList.toggle('valid', hasSpecial);
+
+      // update checkmark glyphs
+      [pwLen, pwUpper, pwLower, pwNumber, pwSpecial].forEach(li => {
+        const box = li.querySelector('.checkmark');
+        if (li.classList.contains('valid')) box.textContent = '✓'; else box.textContent = '';
+      });
+
+      // update confirm match
+      updateConfirmMatch();
+    }
+
+    function updateConfirmMatch() {
+      if (!confirmInput) return;
+      const a = pwInput.value || '';
+      const b = confirmInput.value || '';
+      const match = a && b && a === b;
+      confirmMatch.textContent = match ? 'Passwords match' : 'Passwords do not match';
+      confirmMatch.style.color = match ? 'var(--safe)' : 'var(--text-muted)';
+      confirmMatch.classList.toggle('valid', match);
+    }
+
+    pwInput.addEventListener('input', updatePwChecklist);
+    if (confirmInput) confirmInput.addEventListener('input', updateConfirmMatch);
+    if (otpInput) otpInput.addEventListener('input', () => {
+      otpInput.value = otpInput.value.replace(/\D/g, '').slice(0, 6);
+    });
+    // run once on load
+    updatePwChecklist();
+
+    // Form logic
+    let currentMode = 'login'; // 'login', 'register'
+    let currentRole = 'user'; // 'user', 'admin'
+    let otpRequested = false;
+    let login2faRequested = false;
+    let cachedOtpId = null;
+
+    const tabUser = document.getElementById('tabUser');
+    const tabAdmin = document.getElementById('tabAdmin');
+    const roleInput = document.getElementById('roleInput');
+    const toggleModeBtn = document.getElementById('toggleModeBtn');
+    const submitBtn = document.getElementById('submitBtn');
+
+    const nameGroup = document.getElementById('nameGroup');
+    const confirmPasswordGroup = document.getElementById('confirmPasswordGroup');
+    const rememberGroup = document.getElementById('rememberGroup');
+    const authFooter = document.getElementById('authFooter');
+    const alertBox = document.getElementById('alertBox');
+    const pwChecklist = document.getElementById('pwChecklist');
+
+    const authForm = document.getElementById('authForm');
+
+    function showAlert(msg, type) {
+      alertBox.textContent = msg;
+      alertBox.className = `alert ${type}`;
+      alertBox.style.display = 'block';
+    }
+    function hideAlert() {
+      alertBox.style.display = 'none';
+    }
+
+    function updateUI() {
+      hideAlert();
+      document.getElementById('email').parentElement.style.display = 'block';
+      document.getElementById('password').parentElement.style.display = 'block';
+
+      if (currentRole === 'admin') {
+        currentMode = 'login';
+        authFooter.style.display = 'none';
+        tabAdmin.classList.add('active');
+        tabUser.classList.remove('active');
+      } else {
+        authFooter.style.display = 'block';
+        tabUser.classList.add('active');
+        tabAdmin.classList.remove('active');
+      }
+
+      roleInput.value = currentRole;
+
+      if (currentMode === 'login') {
+        nameGroup.style.display = 'none';
+        confirmPasswordGroup.style.display = 'none';
+        otpGroup.style.display = login2faRequested ? 'block' : 'none';
+        document.getElementById('password').parentElement.style.display = login2faRequested ? 'none' : 'block';
+        if (rememberGroup) rememberGroup.style.display = login2faRequested ? 'none' : 'flex';
+        pwChecklist.style.display = 'none';
+        submitBtn.textContent = login2faRequested ? 'Verify Login OTP' : 'Sign In';
+        if (currentRole === 'user') {
+          authFooter.innerHTML = `Don't have an account? <span class="text-link" id="toggleModeBtn">Register here</span>`;
+        }
+      } else {
+        nameGroup.style.display = 'block';
+        confirmPasswordGroup.style.display = 'block';
+        otpGroup.style.display = otpRequested ? 'block' : 'none';
+        if (resendOtpBtn) resendOtpBtn.style.display = otpRequested ? 'inline-flex' : 'none';
+        pwChecklist.style.display = 'block';
+        rememberGroup.style.display = 'none';
+        submitBtn.textContent = otpRequested ? 'Verify OTP' : 'Register';
+        authFooter.innerHTML = `Already have an account? <span class="text-link" id="toggleModeBtn">Sign in</span>`;
+      }
+
+      const toggleBtn = document.getElementById('toggleModeBtn');
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+          currentMode = currentMode === 'login' ? 'register' : 'login';
+          otpRequested = false;
+          login2faRequested = false;
+          cachedOtpId = null;
+          if (otpInput) otpInput.value = '';
+          updateUI();
+        });
+      }
+    }
+
+    tabUser.addEventListener('click', () => { currentRole = 'user'; currentMode = 'login'; login2faRequested = false; cachedOtpId = null; updateUI(); });
+    tabAdmin.addEventListener('click', () => { currentRole = 'admin'; currentMode = 'login'; login2faRequested = false; cachedOtpId = null; updateUI(); });
+
+    async function requestOtp() {
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      const otpRequestRes = await fetch('php/register.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'request_otp', name, email, password })
+      });
+      return otpRequestRes.json();
+    }
+
+    if (resendOtpBtn) {
+      resendOtpBtn.addEventListener('click', async () => {
+        hideAlert();
+        submitBtn.disabled = true;
+        resendOtpBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+
+        try {
+          const otpRequestData = await requestOtp();
+          if (!otpRequestData.success) {
+            showAlert(otpRequestData.message || 'Unable to resend OTP', 'error');
+            return;
+          }
+
+          if (otpInput) {
+            otpInput.value = '';
+            otpInput.focus();
+          }
+          if (otpHint) otpHint.textContent = 'OTP resent. Enter the new 6-digit code below.';
+          showAlert(otpRequestData.message || 'OTP resent to your email', 'success');
+        } catch (err) {
+          showAlert('A network error occurred', 'error');
+        }
+
+        submitBtn.disabled = false;
+        resendOtpBtn.disabled = false;
+        submitBtn.textContent = 'Verify OTP';
+      });
+    }
+
+    authForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideAlert();
+
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const role = currentRole;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Processing...';
+
+      try {
+        if (currentMode === 'register') {
+          const name = document.getElementById('name').value;
+          const confirm = document.getElementById('confirmPassword').value;
+          const otp = (otpInput.value || '').trim();
+
+          if (password !== confirm) {
+            showAlert('Passwords do not match', 'error');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Register';
+            return;
+          }
+
+          const policy = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]).{8,}$/;
+          if (!policy.test(password)) {
+            showAlert('Password must be at least 8 characters and include one uppercase letter, one number, and one special character', 'error');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Register';
+            return;
+          }
+
+          if (!otpRequested) {
+            const otpRequestData = await requestOtp();
+            if (!otpRequestData.success) {
+              showAlert(otpRequestData.message || 'Unable to send OTP', 'error');
+              submitBtn.disabled = false;
+              submitBtn.textContent = 'Register';
+              return;
+            }
+
+            otpRequested = true;
+            if (otpGroup) otpGroup.style.display = 'block';
+            if (resendOtpBtn) resendOtpBtn.style.display = 'inline-flex';
+            if (otpHint) otpHint.textContent = 'OTP sent. Enter the 6-digit code below to complete registration.';
+            if (otpInput) {
+              otpInput.value = '';
+              otpInput.focus();
+            }
+            showAlert(otpRequestData.message || 'OTP sent to your email', 'success');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Verify OTP';
+            return;
+          }
+
+          if (!otp) {
+            showAlert('Enter the OTP sent to your email', 'error');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Verify OTP';
+            return;
+          }
+
+          const verifyRes = await fetch('php/register.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ action: 'verify_register', email, otp })
+          });
+          const verifyData = await verifyRes.json();
+          if (!verifyData.success) {
+            showAlert(verifyData.message || 'OTP verification failed', 'error');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Verify OTP';
+            return;
+          }
+
+          authForm.reset();
+          otpRequested = false;
+          currentMode = 'login';
+          updateUI();
+          showAlert(verifyData.message || 'Registration completed. You can now sign in.', 'success');
+        } else {
+          if (login2faRequested) {
+            const otp = (otpInput.value || '').trim();
+            if (!otp) {
+              showAlert('Enter the 2FA OTP sent to your email', 'error');
+              submitBtn.disabled = false;
+              submitBtn.textContent = 'Verify Login OTP';
+              return;
+            }
+
+            const verifyRes = await fetch('php/login.php', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                action: 'verify_2fa',
+                email: email,
+                role: role,
+                otp_id: cachedOtpId,
+                otp: otp
+              })
+            });
+            const verifyData = await verifyRes.json();
+            if (!verifyData.success) {
+              showAlert(verifyData.message || '2FA verification failed', 'error');
+              submitBtn.disabled = false;
+              submitBtn.textContent = 'Verify Login OTP';
+              return;
+            }
+
+            showAlert(verifyData.message || 'Login successful', 'success');
+            window.location.href = verifyData.redirect;
+            return;
+          }
+
+          const remember = document.getElementById('remember').checked;
+          const res = await fetch('php/login.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password, role, remember })
+          });
+          const data = await res.json();
+          if (data.success) {
+            if (data.two_factor) {
+              login2faRequested = true;
+              cachedOtpId = data.otp_id;
+
+              document.getElementById('password').parentElement.style.display = 'none';
+              if (rememberGroup) rememberGroup.style.display = 'none';
+
+              otpGroup.style.display = 'block';
+              otpHint.textContent = 'Enter the 6-digit 2FA code sent to your email.';
+              otpInput.value = '';
+              otpInput.focus();
+
+              showAlert(data.message || '2FA OTP sent to your email', 'success');
+              submitBtn.textContent = 'Verify Login OTP';
+            } else {
+              showAlert(data.message, 'success');
+              window.location.href = data.redirect;
+            }
+          } else {
+            showAlert(data.message || 'Login failed', 'error');
+          }
+        }
+      } catch (err) {
+        showAlert('A network error occurred', 'error');
+      }
+
+      submitBtn.disabled = false;
+      if (currentMode === 'login') submitBtn.textContent = 'Sign In';
+      if (currentMode === 'register') submitBtn.textContent = otpRequested ? 'Verify OTP' : 'Register';
+    });
+
+    // Initialize
+    updateUI();
+  </script>
+</body>
+
+</html>

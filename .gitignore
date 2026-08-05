@@ -1,0 +1,12 @@
+.venv/
+.env
+*.pyc
+__pycache__/
+*.sqlite3
+*.db
+url-safety-detection-system-updated.zip
+node_modules/
+.DS_Store
+.idea/
+.vscode/
+data/otp_log.txt

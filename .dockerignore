@@ -1,0 +1,35 @@
+# Version Control
+.git
+.gitignore
+
+# Python virtual envs and caches
+.venv/
+venv/
+ENV/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Local logs and test files
+*.log
+*.err
+server.log
+server.err.log
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local database/temporary files
+data/otp_log.txt
+.env
+.env.*
+!.env.example
+
+# Docker and other configs
+Dockerfile
+.dockerignore
+app.yaml
+GCP_DEPLOYMENT.md

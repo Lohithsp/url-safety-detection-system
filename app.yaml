@@ -1,0 +1,43 @@
+# Google App Engine Configuration File
+# For python web apps using the standard environment
+runtime: python39
+
+# We use the F1 instance class (lowest cost / free tier eligible)
+instance_class: F1
+
+# The entrypoint command to run the application using gunicorn
+entrypoint: gunicorn -b :$PORT --workers 1 --threads 8 --timeout 0 server:app
+
+# Environment variables populated at runtime
+env_variables:
+  APP_NAME: "URL Safety Check"
+  
+  # Cloud SQL Connection Details
+  DB_USER: "root"
+  DB_PASSWORD: "your-gcp-db-password"
+  DB_NAME: "url_safety"
+  # The unix socket path for GCP Cloud SQL (mounted at /cloudsql/)
+  DB_SOCKET: "/cloudsql/YOUR_GCP_PROJECT_ID:YOUR_GCP_REGION:YOUR_CLOUD_SQL_INSTANCE_ID"
+  
+  # Email Configuration (e.g. Gmail SMTP)
+  ADMIN_EMAIL: "youremail@gmail.com"
+  ADMIN_PASSWORD: "yourpassword"
+  MAIL_FROM_EMAIL: "youremail@gmail.com"
+  MAIL_FROM_NAME: "URL Safety Check"
+  MAIL_APP_PASSWORD: "yourpassword"
+  SMTP_HOST: "smtp.gmail.com"
+  SMTP_PORT: "465"
+  SMTP_USE_SSL: "1"
+  SMTP_USE_TLS: "0"
+  OTP_EXPIRY_SECONDS: "600"
+  SESSION_TIMEOUT: "7200"
+  URL_ML_MAX_ROWS: "10000"
+
+  # (Optional) Google Safe Browsing API Key
+  # SAFE_BROWSING_API_KEY: "your_api_key"
+
+# Basic automatic scaling configuration to minimize costs
+automatic_scaling:
+  target_cpu_utilization: 0.65
+  min_instances: 0
+  max_instances: 2

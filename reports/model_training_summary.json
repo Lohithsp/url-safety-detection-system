@@ -1,0 +1,46 @@
+{
+  "best_model": "XGBoost",
+  "selection_rule": "Highest F1, then ROC-AUC, then recall.",
+  "metrics": [
+    {
+      "model": "XGBoost",
+      "accuracy": 0.9989631699950412,
+      "precision": 0.9902186421173763,
+      "recall": 0.9965257672264042,
+      "f1": 0.9933621933621933,
+      "roc_auc": 0.9999916778741735
+    },
+    {
+      "model": "Extra Trees",
+      "accuracy": 0.9987828517333093,
+      "precision": 0.9873853211009175,
+      "recall": 0.9971048060220035,
+      "f1": 0.9922212618841832,
+      "roc_auc": 0.9999941122375106
+    },
+    {
+      "model": "Random Forest",
+      "accuracy": 0.9987828517333093,
+      "precision": 0.9873853211009175,
+      "recall": 0.9971048060220035,
+      "f1": 0.9922212618841832,
+      "roc_auc": 0.9999933196540985
+    },
+    {
+      "model": "Gradient Boosting",
+      "accuracy": 0.9970698282468557,
+      "precision": 0.9797921478060047,
+      "recall": 0.9826288361320209,
+      "f1": 0.9812084417461694,
+      "roc_auc": 0.9991050176417745
+    },
+    {
+      "model": "Logistic Regression",
+      "accuracy": 0.9636207906955777,
+      "precision": 0.7019315188762072,
+      "recall": 0.925883034163289,
+      "f1": 0.798501872659176,
+      "roc_auc": 0.9839848897369281
+    }
+  ]
+}

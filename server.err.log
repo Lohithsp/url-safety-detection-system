@@ -1,0 +1,40 @@
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on http://127.0.0.1:8000
+Press CTRL+C to quit
+127.0.0.1 - - [03/Jun/2026 22:30:36] "POST /php/scan.php HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jun/2026 22:32:04] "GET /user/index.html HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jun/2026 22:32:04] "GET /styles.css HTTP/1.1" 304 -
+127.0.0.1 - - [03/Jun/2026 22:32:04] "GET /assets/logo-shield.svg HTTP/1.1" 304 -
+127.0.0.1 - - [03/Jun/2026 22:32:04] "GET /assets/sidebar-orb.svg HTTP/1.1" 304 -
+127.0.0.1 - - [03/Jun/2026 22:32:05] "GET /script.js?v=ml-scan-2 HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jun/2026 22:32:05] "GET /assets/hero-security.svg HTTP/1.1" 304 -
+127.0.0.1 - - [03/Jun/2026 22:32:05] "GET /js/session-protection.js HTTP/1.1" 304 -
+127.0.0.1 - - [03/Jun/2026 22:32:05] "GET /php/check_session.php HTTP/1.1" 401 -
+127.0.0.1 - - [03/Jun/2026 22:32:05] "GET /index.html HTTP/1.1" 304 -
+127.0.0.1 - - [03/Jun/2026 22:32:05] "GET /styles.css HTTP/1.1" 304 -
+127.0.0.1 - - [03/Jun/2026 22:32:49] "POST /php/login.php HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jun/2026 22:32:49] "GET /user/index.html HTTP/1.1" 304 -
+127.0.0.1 - - [03/Jun/2026 22:32:49] "GET /styles.css HTTP/1.1" 304 -
+127.0.0.1 - - [03/Jun/2026 22:32:49] "GET /assets/logo-shield.svg HTTP/1.1" 304 -
+127.0.0.1 - - [03/Jun/2026 22:32:49] "GET /assets/sidebar-orb.svg HTTP/1.1" 304 -
+127.0.0.1 - - [03/Jun/2026 22:32:49] "GET /assets/hero-security.svg HTTP/1.1" 304 -
+127.0.0.1 - - [03/Jun/2026 22:32:49] "GET /js/session-protection.js HTTP/1.1" 304 -
+127.0.0.1 - - [03/Jun/2026 22:32:49] "GET /script.js?v=ml-scan-2 HTTP/1.1" 304 -
+127.0.0.1 - - [03/Jun/2026 22:32:49] "GET /php/check_session.php HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jun/2026 22:32:54] "POST /php/scan.php HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jun/2026 22:33:21] "POST /php/scan.php HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jun/2026 22:33:38] "GET /user/scan.html HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jun/2026 22:33:38] "GET /styles.css HTTP/1.1" 304 -
+127.0.0.1 - - [03/Jun/2026 22:33:38] "GET /assets/logo-shield.svg HTTP/1.1" 304 -
+127.0.0.1 - - [03/Jun/2026 22:33:38] "GET /assets/sidebar-orb.svg HTTP/1.1" 304 -
+127.0.0.1 - - [03/Jun/2026 22:33:38] "GET /js/session-protection.js HTTP/1.1" 304 -
+127.0.0.1 - - [03/Jun/2026 22:33:38] "GET /assets/hero-security.svg HTTP/1.1" 304 -
+127.0.0.1 - - [03/Jun/2026 22:33:38] "GET /script.js?v=ml-scan-2 HTTP/1.1" 304 -
+127.0.0.1 - - [03/Jun/2026 22:33:38] "GET /php/check_session.php HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jun/2026 22:33:45] "GET /user/history.html HTTP/1.1" 304 -
+127.0.0.1 - - [03/Jun/2026 22:33:45] "GET /styles.css HTTP/1.1" 304 -
+127.0.0.1 - - [03/Jun/2026 22:33:45] "GET /assets/sidebar-orb.svg HTTP/1.1" 304 -
+127.0.0.1 - - [03/Jun/2026 22:33:45] "GET /assets/logo-shield.svg HTTP/1.1" 304 -
+127.0.0.1 - - [03/Jun/2026 22:33:45] "GET /js/session-protection.js HTTP/1.1" 304 -
+127.0.0.1 - - [03/Jun/2026 22:33:45] "GET /script.js HTTP/1.1" 200 -
+127.0.0.1 - - [03/Jun/2026 22:33:46] "GET /php/check_session.php HTTP/1.1" 200 -

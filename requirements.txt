@@ -1,0 +1,13 @@
+Flask>=2.0
+werkzeug
+mysql-connector-python
+pandas
+numpy
+scikit-learn
+xgboost
+shap
+matplotlib
+seaborn
+joblib
+sqlalchemy
+gunicorn>=20.1.0

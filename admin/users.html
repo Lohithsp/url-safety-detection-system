@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en" data-require-role="admin">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Users | Admin Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../js/theme-manager.js"></script>
+</head>
+<body class="theme-dark">
+  <div class="app-shell admin-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">
+          <img src="../assets/logo-shield.svg" alt="URLGuard logo">
+        </div>
+        <div>
+          <h1>URLGuard</h1>
+          <p>Admin Console</p>
+        </div>
+      </div>
+
+      <nav class="nav-section">
+        <span class="nav-label">Admin</span>
+        <a class="nav-link" href="admin.html">Dashboard</a>
+        <a class="nav-link" href="scan.html">Scan URLs</a>
+        <a class="nav-link" href="history.html">URL History</a>
+        <a class="nav-link" href="reports.html">Reports</a>
+        <a class="nav-link active" href="users.html">Users</a>
+        <a class="nav-link" href="model.html">Model Overview</a>
+        <a class="nav-link" href="features.html">Feature Analysis</a>
+        <a class="nav-link" href="performance.html">Model Performance</a>
+        <a class="nav-link" href="settings.html">Settings</a>
+        <a class="nav-link" href="logs.html">Activity Logs</a>
+      </nav>
+
+      <div class="sidebar-card admin-card">
+        <img class="sidebar-art" src="../assets/sidebar-orb.svg" alt="Security shield illustration">
+        <h3>System integrity</h3>
+        <p>Keep operations monitored and retrain only when feature drift or new threat patterns appear.</p>
+        <a class="text-link" href="../user/index.html">Open user dashboard</a>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Admin Tools</p>
+          <h2>User Management</h2>
+        </div>
+        <div class="topbar-actions">
+          <label class="searchbar" for="adminSearch">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.8" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m20 20-3.8-3.8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <input id="adminSearch" type="search" placeholder="Search anything...">
+          </label>
+          <button class="profile-chip" type="button">
+            <span class="profile-avatar">A</span>
+            <span>Admin</span>
+          </button>
+        </div>
+      </header>
+
+      <section class="card panel">
+        <div class="section-head">
+          <h3>User registrations</h3>
+        </div>
+        <div style="padding: 1rem; color: var(--text-secondary);">
+          New users self-register using email OTP verification. No admin approval is required — verified accounts are active immediately.
+        </div>
+      </section>
+
+      <!-- All Users -->
+      <section class="card panel" style="margin-top: 2rem;">
+        <div class="section-head">
+          <h3>All Users</h3>
+        </div>
+        <div class="table-wrap" id="usersTableWrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Registration Date</th>
+                <th>Last Login</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="usersTableBody">
+              <tr>
+                <td colspan="6" class="empty-state-cell" style="text-align: center; padding: 40px;">
+                  Loading...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="../js/session-protection.js"></script>
+  <script src="../script.js"></script>
+  <script>
+    // Check session and set current user info
+    async function checkSession() {
+      try {
+        const response = await fetch('../php/check_session.php');
+        const data = await response.json();
+        if (!data.logged_in || data.user.role !== 'admin') {
+          window.location.href = '../index.html';
+          return null;
+        }
+        // expose whether this admin is the main admin
+        window.CURRENT_USER = data.user;
+        window.CURRENT_USER_IS_MAIN_ADMIN = !!data.user.is_main_admin;
+        return data.user;
+      } catch (err) {
+        window.location.href = '../index.html';
+        return null;
+      }
+    }
+
+    // Load users
+    async function loadUsers() {
+      try {
+        const response = await fetch('../php/manage_users.php?action=list');
+        const data = await response.json();
+
+        if (data.success) {
+          const users = data.users || [];
+          const pendingUsers = users.filter(u => u.status === 'pending');
+          const allUsers = users;
+
+          // Render pending users
+          renderPendingUsers(pendingUsers);
+          // Render all users
+          renderAllUsers(allUsers);
+        }
+      } catch (error) {
+        console.error('Error loading users:', error);
+      }
+    }
+
+    function renderPendingUsers(users) {
+      const tbody = document.getElementById('pendingTableBody');
+      if (!tbody) return;
+      if (users.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="empty-state-cell" style="text-align: center; padding: 40px;">No pending approvals</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = users.map(user => `
+        <tr>
+          <td>${escapeHtml(user.name)}</td>
+          <td>${escapeHtml(user.email)}</td>
+          <td>
+            <select id="role-${user.id}" class="settings-select" aria-label="Select role for ${escapeHtml(user.email)}" style="min-width: 120px;">
+              <option value="user" ${user.role === 'admin' ? '' : 'selected'}>User</option>
+              <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Admin</option>
+            </select>
+          </td>
+          <td>${formatDate(user.registration_date)}</td>
+          <td><span class="status-badge pending">${user.status}</span></td>
+          <td>
+            <button class="action-btn approve-btn" onclick="approveUser(${user.id})">✓ Approve</button>
+            <button class="action-btn reject-btn" onclick="rejectUser(${user.id})">✕ Reject</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function renderAllUsers(users) {
+      const tbody = document.getElementById('usersTableBody');
+      if (users.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="empty-state-cell" style="text-align: center; padding: 40px;">No users</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = users.map(user => {
+        // Only allow the specific main admin email to delete users
+        const canDelete = !!(window.CURRENT_USER && window.CURRENT_USER.email === 'youremail@gmail.com');
+        return `
+        <tr>
+          <td>${escapeHtml(user.name)}</td>
+          <td>${escapeHtml(user.email)}</td>
+          <td>
+            <div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;">
+              <select id="user-role-${user.id}" class="settings-select" aria-label="Change role for ${escapeHtml(user.email)}" style="min-width: 120px;">
+                <option value="user" ${user.role === 'user' ? 'selected' : ''}>User</option>
+                <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Admin</option>
+              </select>
+              <button class="action-btn approve-btn" type="button" onclick="updateUserRole(${user.id})">Save Role</button>
+            </div>
+          </td>
+          <td><span class="status-badge ${user.status}">${user.status}</span></td>
+          <td>${formatDate(user.registration_date)}</td>
+          <td>${user.last_login ? formatDate(user.last_login) : 'Never'}</td>
+          <td>
+            ${canDelete ? `<button class="action-btn delete-btn" onclick="deleteUser(${user.id})">🗑 Delete</button>` : ''}
+          </td>
+        </tr>
+      `}).join('');
+    }
+
+    async function approveUser(userId) {
+      if (confirm('Approve this user?')) {
+        try {
+          const roleSelect = document.getElementById('role-' + userId);
+          const selectedRole = roleSelect ? roleSelect.value : 'user';
+          const response = await fetch('../php/manage_users.php?action=approve&user_id=' + userId + '&role=' + encodeURIComponent(selectedRole), {
+            method: 'POST'
+          });
+          const data = await response.json();
+          if (data.success) {
+            alert('User approved successfully');
+            loadUsers();
+          } else {
+            alert('Error: ' + data.message);
+          }
+        } catch (error) {
+          alert('Error: ' + error.message);
+        }
+      }
+    }
+
+    async function rejectUser(userId) {
+      if (confirm('Reject this user?')) {
+        try {
+          const response = await fetch('../php/manage_users.php?action=reject&user_id=' + userId, {
+            method: 'POST'
+          });
+          const data = await response.json();
+          if (data.success) {
+            alert('User rejected');
+            loadUsers();
+          } else {
+            alert('Error: ' + data.message);
+          }
+        } catch (error) {
+          alert('Error: ' + error.message);
+        }
+      }
+    }
+
+    async function updateUserRole(userId) {
+      const roleSelect = document.getElementById('user-role-' + userId);
+      const selectedRole = roleSelect ? roleSelect.value : 'user';
+
+      try {
+        const response = await fetch('../php/manage_users.php?action=update_role&user_id=' + userId + '&role=' + encodeURIComponent(selectedRole), {
+          method: 'POST'
+        });
+        const data = await response.json();
+        if (data.success) {
+          alert('User role updated successfully');
+          loadUsers();
+        } else {
+          alert('Error: ' + data.message);
+        }
+      } catch (error) {
+        alert('Error: ' + error.message);
+      }
+    }
+
+    async function deleteUser(userId) {
+      if (confirm('Delete this user permanently? This cannot be undone.')) {
+        try {
+          const response = await fetch('../php/manage_users.php?action=delete&user_id=' + userId, {
+            method: 'POST'
+          });
+          const data = await response.json();
+          if (data.success) {
+            alert('User deleted successfully');
+            loadUsers();
+          } else {
+            alert('Error: ' + data.message);
+          }
+        } catch (error) {
+          alert('Error: ' + error.message);
+        }
+      }
+    }
+
+    function formatDate(dateString) {
+      if (!dateString) return 'Never';
+      if (window.formatDateBySettings) {
+        try {
+          return window.formatDateBySettings(dateString);
+        } catch (e) {
+          // fall through to default formatting
+        }
+      }
+
+      // Normalize common SQL datetime formats (e.g. "YYYY-MM-DD HH:MM:SS")
+      let ds = String(dateString);
+      if (/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(ds)) {
+        ds = ds.replace(' ', 'T');
+      }
+      const d = new Date(ds);
+      if (isNaN(d)) {
+        return String(dateString) || 'Never';
+      }
+      return d.toLocaleString('en-US', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    const refreshBtn = document.getElementById('refreshBtn');
+    if (refreshBtn) {
+      refreshBtn.addEventListener('click', loadUsers);
+    }
+
+    // Initialize: wait for session then load users
+    (async function init() {
+      const user = await checkSession();
+      if (!user) return;
+      await loadUsers();
+      // Auto-refresh every 30 seconds
+      setInterval(loadUsers, 30000);
+    })();
+  </script>
+
+  <style>
+    .status-badge {
+      display: inline-block;
+      padding: 0.4rem 0.8rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .status-badge.pending {
+      background: var(--suspicious-soft);
+      color: var(--suspicious);
+    }
+
+    .status-badge.approved {
+      background: var(--safe-soft);
+      color: var(--safe);
+    }
+
+    .status-badge.rejected {
+      background: var(--malicious-soft);
+      color: var(--malicious);
+    }
+
+    .action-btn {
+      padding: 0.4rem 0.8rem;
+      margin: 0 0.25rem;
+      border: none;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-weight: 600;
+    }
+
+    .approve-btn {
+      background: var(--safe-soft);
+      color: var(--safe);
+    }
+
+    .approve-btn:hover {
+      background: rgba(34, 197, 94, 0.25);
+    }
+    body.theme-light .approve-btn:hover {
+      background: rgba(16, 185, 129, 0.25);
+    }
+
+    .reject-btn {
+      background: var(--malicious-soft);
+      color: var(--malicious);
+    }
+
+    .reject-btn:hover {
+      background: rgba(239, 68, 68, 0.25);
+    }
+
+    .delete-btn {
+      background: var(--malicious-soft);
+      color: var(--malicious);
+    }
+
+    .delete-btn:hover {
+      background: rgba(239, 68, 68, 0.25);
+    }
+  </style>
+  <script src="admin-dropdown.js"></script>
+</body>
+</html>
